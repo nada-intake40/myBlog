@@ -60,12 +60,18 @@ class PostController extends Controller
     {
         $request=request();
         $postId=$request->post;
-        $post=Post::find($postId);
-        $post->title=$request->title;
-        $post->description=$request->description;      
-        $post->user_id =$request->user_id;
-        $post->save();
-    
+        Post::where('id',$postId)->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'user_id' =>  $request->user_id,
+        ]);
+        return redirect()->route('posts.index');
+    }
+
+    public function destroy()
+    {
+        $postId=request()->post;
+        Post::where('id',$postId)->delete();
         return redirect()->route('posts.index');
     }
 }
