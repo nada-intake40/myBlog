@@ -10,16 +10,20 @@
         <table class="table">
         <thead>
             <tr class="font-weight-bolder">
-            <th scope="col">Title</th>
-            <th scope="col">Posted By</th>
-            <th scope="col">Created At</th>
-            <th scope="col">Actions</th>
+            <th scope="col"><strong>Id</strong></th>
+            <th scope="col"><strong> Title</strong></th>
+            <th scope="col"><strong> Slug</strong></th>
+            <th scope="col"><strong> Posted By</strong></th>
+            <th scope="col"><strong> Created At</strong></th>
+            <th scope="col"><strong> Actions</strong></th>
             </tr>
         </thead>
         <tbody>
             @foreach($posts as $post)
             <tr>
-            <th scope="row">{{$post->title}}</th>
+            <td>{{$post->id}}</td>    
+            <td>{{$post->title}}</td>
+            <td>{{$post->slug}}</td>
             <td>{{$post->user ? $post->user->name : 'not exist'}}</td>
             <td>{{$post->created_at->toDateString()}}</td>
             <td><div class="row">
@@ -36,7 +40,10 @@
             @endforeach
         </tbody>
         </table>
-    </div>   
+    </div>  
+    <div   class="row mx-5">
+    {!! $posts->links() !!}
+    </div>
 </div>
 
 @endsection

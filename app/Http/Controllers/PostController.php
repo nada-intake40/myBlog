@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post ;
 use App\User;
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
+
 
 class PostController extends Controller
 {
     public function index()
-    {    $posts=Post::all();
+    {    $posts=Post::orderBy('id','asc')->paginate(2);
         return view('posts.index',[
            'posts' => $posts,
         ]);
@@ -32,10 +35,8 @@ class PostController extends Controller
         ]);
     }
 
-    public function store()
-    {
-        $request=request();
-       
+    public function store(StorePostRequest $request)
+    {   
         Post::create([
             'title' => $request->title,
             'description' =>  $request->description,
@@ -56,9 +57,8 @@ class PostController extends Controller
         ]);
     }
 
-    public function update()
+    public function update(UpdatePostRequest $request)
     {
-        $request=request();
         $postId=$request->post;
         Post::where('id',$postId)->update([
             'title' => $request->title,

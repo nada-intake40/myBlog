@@ -42,6 +42,7 @@
 
             .content {
                 text-align: center;
+                font-size: 150px;
             }
 
             .title {
@@ -80,7 +81,7 @@
             @endif
 
             <div class="content">
-                <div ">
+                <div >
                     Laravel
                 </div>
 

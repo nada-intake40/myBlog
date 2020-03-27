@@ -17,16 +17,23 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/posts','PostController@index')->name('posts.index');
+Route::group(['middleware'=>'auth'],function(){
+    Route::get('/posts','PostController@index')->name('posts.index');
 
-Route::get('/posts/create','PostController@create')->name('posts.create');
+    Route::get('/posts/create','PostController@create')->name('posts.create');
 
-Route::post('/posts','PostController@store')->name('posts.store');
+    Route::post('/posts','PostController@store')->name('posts.store');
 
-Route::put('posts/{post}','PostController@update')->name('posts.update');
+    Route::put('posts/{post}','PostController@update')->name('posts.update');
 
-Route::delete('posts/{post}','PostController@destroy')->name('posts.destroy');
+    Route::delete('posts/{post}','PostController@destroy')->name('posts.destroy');
 
-Route::get('/posts/{post}/edit','PostController@edit')->name('posts.edit');
+    Route::get('/posts/{post}/edit','PostController@edit')->name('posts.edit');
 
-Route::get('/posts/{post}','PostController@show')->name('posts.show');
+    Route::get('/posts/{post}','PostController@show')->name('posts.show');
+});
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
