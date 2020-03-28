@@ -16,6 +16,9 @@ class Post extends Model
       'user_id'
  ];
 
+ protected $with = ['user'];
+
+
  public function user()
  {
      return $this->belongsTo('App\User');
